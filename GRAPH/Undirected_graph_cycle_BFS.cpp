@@ -1,17 +1,27 @@
 class Solution {
   public:
-    bool DFS(vector<vector<int>>& adj,vector<bool> &visited,int start,int parent)
+    bool BFS(vector<vector<int>>& adj,vector<bool> &visited,int start)
     {
+        queue<pair<int,int>> q;
         visited[start]=true;
-        for(auto it:adj[start])
+        q.push({start,-1});
+        
+        while(!q.empty())
         {
-            if(!visited[it])
+            int node=q.front().first;
+            int parent=q.front().second;
+            q.pop();
+            for(auto it:adj[node])
             {
-                if(DFS(adj,visited,it,start)) return true;
-            }
-            else if(it!=parent)
-            {
-                return true;
+                if(!visited[it])
+                {
+                    visited[it]=true;
+                    q.push({it,node});
+                }
+                else if(it!=parent)
+                {
+                    return true;
+                }
             }
         }
         return false;
@@ -20,8 +30,6 @@ class Solution {
     {
         // Code here
         vector<vector<int>> adj(V);
-
-        // Build adjacency list
         for (auto &e : edges)
         {
             int u = e[0];
@@ -36,7 +44,7 @@ class Solution {
         {
             if(!visited[i])
             {
-                if(DFS(adj,visited,i,-1)) return true;
+                if(BFS(adj,visited,i)) return true;
             }
         }
         return false;
