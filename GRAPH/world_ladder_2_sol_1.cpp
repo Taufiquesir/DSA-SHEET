@@ -47,7 +47,7 @@ public:
                     }
                 }
                 
-                word[i] = original;
+                word[i] = original; //put original character back
             }
         }
         return ans;
