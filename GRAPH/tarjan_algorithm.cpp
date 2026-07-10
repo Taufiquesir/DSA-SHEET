@@ -43,7 +43,11 @@ public:
         vector<vector<int>>bridges;
         int tin[n];
         int low[n];
-        DFS(0,-1,vis,adj,tin,low,bridges);
+        for(int i=0;i<n;i++)
+        {
+            if(!vis[i])
+                DFS(i,-1,vis,adj,tin,low,bridges);
+        }        
         return bridges;       
     }
 };
